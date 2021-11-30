@@ -83,6 +83,453 @@ The code that I have stolen and reused here is also under MIT license. So everyo
 
 ---
 
+layout: false
+
+# What are Lambdas? 
+
+Lambdas are syntactic sugar for function **objects**
+
+.split-60[
+.column[
+
+```c++
+#include <iostream>
+
+struct C {
+    int operator()() {
+        return 42;
+    } 
+};
+
+int main()
+{
+    C c;
+    // eagerly waiting for std::print
+    std::cout << c() << "\n";
+}
+```
+]
+.column[
+![](images/JosuttisAboutLambdasOnTwitter.png)
+
+https://godbolt.org/z/fqq86rKGd
+]
+]
+
+---
+
+layout: false
+
+# What are Lambdas? 
+
+Lambdas are syntactic sugar for function **objects**
+
+.split-60[
+.column[
+
+```c++
+#include <iostream>
+
+int main()
+{
+    auto c = []() {
+        return 42;
+    };
+
+    // eagerly waiting for std::print
+    std::cout << c() << "\n";
+}
+```
+]
+.column[
+![](images/JosuttisAboutLambdasOnTwitter.png)
+
+https://godbolt.org/z/36YvfG6v8
+]
+]
+
+
+---
+
+layout: false
+
+# Lambdas are Objects! 
+
+Check on https://cppinsights.io/ decompiler
+
+.split-30[
+.column[
+
+
+```c++
+ `auto` c = []() {
+     return 42;
+ };
+```
+]
+.column[
+```c++
+class `__lambda_1_11`
+{
+  public: 
+  inline int operator()() const
+  {
+    return 42;
+  }
+  // ... some function pointer stuff omitted ... 
+  // __lambda_1_11() = default;
+};
+
+ `__lambda_1_11` c = __lambda_1_11{};
+
+```
+
+]
+]
+
+
+---
+
+layout: false
+
+# Lambdas Can Store Objects via Binding 
+
+.split-40[
+.column[
+
+```c++
+auto c = [](int i) {
+  auto result = [=] {
+      return i;
+  };
+  
+  return result;
+};
+
+static_assert(42 == c(42)());
+```
+]
+.column[
+```c++
+class __lambda_1_14 {
+  public: 
+  inline `__lambda_2_23` operator()(int i) const
+  {
+    class __lambda_2_23 {
+      private: 
+      int i;
+      public: 
+      __lambda_2_23(int & _i) : i{_i} {}
+      inline int operator()() const 
+      { return i; }
+    };
+    
+    __lambda_2_23 result = __lambda_2_23{i} 
+    return __lambda_2_23(result);
+  }
+  
+__lambda_1_14 c = __lambda_1_14{};
+```
+
+]
+]
+
+---
+
+layout: false
+
+# Lambdas and Constexpr  
+
+Lambdas can be marked as *can be evaluated at compile time* via `constexpr`
+
+.split-60[
+.column[
+
+```c++
+int main()
+{
+    auto c = []() constexpr {
+        return 42;
+    };
+
+    static_assert(42 == c());
+}
+```
+]
+.column[
+
+]
+]
+
+---
+
+layout: false
+
+# Lambdas and Constexpr  
+
+A lambda is implicitly constexpr if its result satisfies the requirements of a constexpr function:
+
+
+```c++
+int main()
+{
+  /* implicitly constexpr */ auto c = []() /* implicitly constexpr */ {
+        return 42;
+  };
+
+  // Won't compile, no reassignment possible:  
+  // c = []() { return 43; };
+
+  static_assert(42 == c());
+}
+```
+
+---
+
+layout: false
+
+# Lambdas and Consteval  
+
+Lambdas can be marked as *must evaluate at compile time* via `consteval`, but since
+they are implicitly constexpr, consteval is not always necessary.
+
+.split-60[
+.column[
+
+```c++
+int main()
+{
+    auto c = [](int i) consteval {
+        return i + 1;
+    };
+
+    static_assert(42 == c(41));
+}
+```
+]
+.column[
+https://godbolt.org/z/WdqcW4PWr
+]
+]
+
+---
+
+layout: false
+
+# You can inherit from the type of a Lambda 
+
+```c++
+[[maybe_unused]] auto fi = [](int i) { return i * i; };
+[[maybe_unused]] auto fd = [](double d) { return 2.0 * d; };
+
+struct overload 
+    : `decltype(fi), decltype(fd)` {
+
+    using decltype(fi)::operator();
+    using decltype(fd)::operator();        
+};
+
+int main()
+{
+    overload o; // We can ...
+    o(42);      // Country ... 
+    o(42.0);    // and Western!
+}
+```
+
+---
+
+layout: false
+
+# You can inherit from the type of a Lambda 
+
+See https://arne-mertz.de/2018/05/overload-build-a-variant-visitor-on-the-fly/
+
+```c++
+template <class ...Fs>
+struct overload : Fs... {
+  template <class ...Ts>
+  overload(Ts&& ...ts) : Fs{std::forward<Ts>(ts)}...
+  {} 
+
+  using Fs::operator()...;
+};
+
+template <class ...Ts>
+overload(Ts&&...) -> overload<std::remove_reference_t<Ts>...>;
+```
+
+---
+
+layout: false
+
+# Generic Lambdas   
+
+Lambdas can be generic (as I promised)
+
+.split-50[
+.column[
+
+```c++
+#include <type_traits>
+
+int main()
+{
+    auto c = []`<typename T>`(T i) 
+    {
+        static_assert(
+          std::is_integral_v<T>);
+        return i + 1;
+    };
+
+    static_assert(42 == c(41));
+}
+```
+]
+.column[
+
+```c++
+#include <type_traits>
+
+int main()
+{
+    auto c = [](`auto` i) 
+    {
+        static_assert(
+          std::is_integral_v<
+            `decltype(i)`>);
+        return i + 1;
+    };
+
+    static_assert(42 == c(41));
+}
+```
+
+]
+]
+
+---
+
+layout: false
+
+# Generic Lambdas: Explicit Parametrization   
+
+```c++
+#include <type_traits>
+
+int main()
+{
+    auto c = []<typename T>(T i) 
+    {
+        static_assert(std::is_integral_v<T>);
+        return i + 1;
+    };
+
+    // error: 
+    // `'c' does not name a template but is followed by template arguments`
+    // static_assert(42 == c`<int>`(41));
+
+    static_assert(42 == c.`template operator()<int>`(41));
+}
+```
+
+---
+
+layout: false
+
+```c++
+#include <type_traits>
+#include <iostream>
+
+consteval auto addItem(auto origin, auto key, auto value) 
+    requires (std::is_same_v<void, decltype(origin(key))>) {
+    
+    auto result = [=](auto arg) constexpr
+    {
+        if constexpr(std::is_same_v<decltype(arg), decltype(key)>) {
+            return value;
+        } 
+        else if constexpr(!std::is_same_v<void, decltype(origin(arg))>)
+        {
+            return origin(arg);    
+        }
+    };
+
+    return result;
+}
+```
+---
+
+```c++
+template<int I> struct index {};
+
+int main()
+{
+    constexpr auto c = [](auto) {};
+    constexpr auto c_ = addItem(c, index<1>{}, "Hello");
+
+    constexpr auto c__ = addItem(c_, index<2>{}, 42);  
+    
+    // Will fail to compile as expected, 
+    // since requires clause above kicks in
+    // constexpr auto c___ = addItem(c__, index<2>{}, "WAT");  
+
+    std::cout << c__(index<1>{}) << " ";
+    std::cout << c__(index<2>{}) << "\n";   
+    
+    // Will fail to compile
+    // std::cout << c__(index<3>{}) << "\n";   
+}
+```
+
+---
+
+```c++
+#include <type_traits>
+#include <iostream>
+
+template<int I>
+consteval auto addItem(auto origin, auto value) 
+    requires (std::is_same_v<void, decltype(origin.template operator()<I>())>) {
+    
+    auto result = [=]<int J>() constexpr
+    {
+        if constexpr(I == J) {
+            return value;
+        } 
+        else 
+        {
+            return origin.template operator()<J>();    
+        }
+    };
+
+    return result;
+}
+```
+
+---
+
+```c++
+template<int I>
+consteval auto get(auto c) {
+    return c.`template operator()`<I>();
+}
+  
+int main()
+{
+    constexpr auto c = []<int I>() {};
+    c.template operator()<2>();
+
+    constexpr auto c_ = addItem<1>(c, "Hello");
+    constexpr auto c__ = addItem<2>(c_, 42);  
+    
+    std::cout << get<1>(c__) << " ";
+    std::cout << get<2>(c__) << "\n";   
+}
+```
+
+---
+
 background-image: url(images/DSC_0253_small.jpg)
 background-size: cover
 
