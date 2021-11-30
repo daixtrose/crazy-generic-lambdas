@@ -83,6 +83,11 @@ The code that I have stolen and reused here is also under MIT license. So everyo
 
 ---
 
+background-image: url(images/DSC_0085_small.jpg)
+background-size: cover
+
+---
+
 layout: false
 
 # What are Lambdas? 
@@ -312,52 +317,6 @@ https://godbolt.org/z/WdqcW4PWr
 ]
 ]
 
----
-
-layout: false
-
-# You can inherit from the type of a Lambda 
-
-```c++
-[[maybe_unused]] auto fi = [](int i) { return i * i; };
-[[maybe_unused]] auto fd = [](double d) { return 2.0 * d; };
-
-struct overload 
-    : `decltype(fi), decltype(fd)` {
-
-    using decltype(fi)::operator();
-    using decltype(fd)::operator();        
-};
-
-int main()
-{
-    overload o; // We can ...
-    o(42);      // Country ... 
-    o(42.0);    // and Western!
-}
-```
-
----
-
-layout: false
-
-# You can inherit from the type of a Lambda 
-
-See https://arne-mertz.de/2018/05/overload-build-a-variant-visitor-on-the-fly/
-
-```c++
-template <class ...Fs>
-struct overload : Fs... {
-  template <class ...Ts>
-  overload(Ts&& ...ts) : Fs{std::forward<Ts>(ts)}...
-  {} 
-
-  using Fs::operator()...;
-};
-
-template <class ...Ts>
-overload(Ts&&...) -> overload<std::remove_reference_t<Ts>...>;
-```
 
 ---
 
@@ -421,7 +380,6 @@ int main()
 {
     auto c = []<typename T>(T i) 
     {
-        static_assert(std::is_integral_v<T>);
         return i + 1;
     };
 
@@ -437,48 +395,67 @@ int main()
 
 layout: false
 
+# Generic Lambdas: Explicit Parametrization for Value Parameters  
+
 ```c++
 #include <type_traits>
-#include <iostream>
-
-consteval auto addItem(auto origin, auto key, auto value) 
-    requires (std::is_same_v<void, decltype(origin(key))>) {
-    
-    auto result = [=](auto arg) constexpr
-    {
-        if constexpr(std::is_same_v<decltype(arg), decltype(key)>) {
-            return value;
-        } 
-        else if constexpr(!std::is_same_v<void, decltype(origin(arg))>)
-        {
-            return origin(arg);    
-        }
-    };
-
-    return result;
-}
-```
----
-
-```c++
-template<int I> struct index {};
 
 int main()
 {
-    constexpr auto c = [](auto) {};
-    constexpr auto c_ = addItem(c, index<1>{}, "Hello");
+    auto c = []<`int I`>() 
+    {
+        return I + 1;
+    };
 
-    constexpr auto c__ = addItem(c_, index<2>{}, 42);  
-    
-    // Will fail to compile as expected, 
-    // since requires clause above kicks in
-    // constexpr auto c___ = addItem(c__, index<2>{}, "WAT");  
+    static_assert(42 == c.template operator()<`41`>());
+    //                    ^^^^^^^^^^^^^^^^^^^^^^^
+}
+```
 
-    std::cout << c__(index<1>{}) << " ";
-    std::cout << c__(index<2>{}) << "\n";   
+---
+
+layout: false
+
+# Generic Lambdas: Explicit Parametrization for Value Parameters  
+
+```c++
+#include <type_traits>
+
+// a helper function  
+template <int I> consteval auto `get`(auto const & c) {
+    return c.`template operator()<I>`();
+}
+
+int main()
+{
+    auto c = []<int I>() 
+    {
+        return I + 1;
+    };
+
+    static_assert(42 == `get<41>`(c));
+}
+```
+
+
+---
+
+# Store Multiple Values in a Lambda
+
+```c++
+template<int I> consteval auto get(auto c) {
+    return c.template operator()<I>();
+}
+  
+int main()
+{
+    constexpr auto c = []<int I>() {}; // start empty
     
-    // Will fail to compile
-    // std::cout << c__(index<3>{}) << "\n";   
+    constexpr auto c_ = `addItem<1>`(c, "Hello"); // add an item 
+    constexpr auto c__ = `addItem<2>`(c_, 42); // add another one 
+    
+    std::cout << `get<1>`(c__) << " "; // get the 1st value back 
+    std::cout << `get<2>`(c__) << "\n"; // get the 2nd value back   
 }
 ```
 
@@ -489,8 +466,7 @@ int main()
 #include <iostream>
 
 template<int I>
-consteval auto addItem(auto origin, auto value) 
-    requires (std::is_same_v<void, decltype(origin.template operator()<I>())>) {
+consteval auto `addItem`(auto origin, auto value) {
     
     auto result = [=]<int J>() constexpr
     {
@@ -510,22 +486,163 @@ consteval auto addItem(auto origin, auto value)
 ---
 
 ```c++
+#include <type_traits>
+#include <iostream>
+
+template<int `I`>
+consteval auto `addItem`(auto origin, auto `value`) {
+    
+    // _return_ a lambda that _returns_ `value` ...
+    auto result = [`=`]<int J>() constexpr
+    {
+        // ... if (and only if) called with `I`  
+        if `constexpr`(`I` == J) {
+            return value;
+        } 
+        else 
+        {
+            return origin.template operator()<J>();    
+        }
+    };
+
+    return result;
+}
+```
+
+---
+
+```c++
+#include <type_traits>
+#include <iostream>
+
 template<int I>
-consteval auto get(auto c) {
-    return c.`template operator()`<I>();
+consteval auto addItem(auto `origin`, auto value) {
+    
+    auto result = [=]<int J>() constexpr
+    {
+        if `constexpr`(I == J) {
+            return value;
+        } 
+        `else` 
+        {
+            return `origin.template operator()<J>()`;    
+        }
+    };
+
+    return result;
+}
+```
+
+---
+
+# Store Multiple Values in a Lambda
+
+```c++
+    constexpr auto `c` = `[]<int I>() {}`; // start empty
+    //             | 
+    //             \----------------|
+    //                              V
+    constexpr auto `c_` = addItem<1>(`c`, "Hello"); // add an item
+    //              | 
+    //              \-----------------|
+    //                                V
+    constexpr auto `c__` = addItem<2>(`c_`, 42); // add another one 
+    
+    std::cout << get<1>(c__) << " "; // get the 1st value back 
+    std::cout << get<2>(c__) << "\n"; // get the 2nd value back   
+    // std::cout << get<3>(c__) << "\n"; // compiler error (void)     
+```
+
+---
+
+# Hinder Overwrites
+
+```c++
+template<int I> consteval auto get(auto c) {
+    return c.template operator()<I>();
 }
   
 int main()
 {
-    constexpr auto c = []<int I>() {};
-    c.template operator()<2>();
-
-    constexpr auto c_ = addItem<1>(c, "Hello");
-    constexpr auto c__ = addItem<2>(c_, 42);  
+    constexpr auto c = []<int I>() {}; // start empty
     
-    std::cout << get<1>(c__) << " ";
-    std::cout << get<2>(c__) << "\n";   
+    constexpr auto c_ = addItem<1>(c, "Hello"); // add an item 
+    constexpr auto c__ = `addItem<1>(c_, "World")`; // <--- should fail!   
 }
+```
+
+---
+
+```c++
+#include <type_traits>
+#include <iostream>
+
+template<int I>
+consteval auto addItem(auto origin, auto value) 
+    `requires (std::is_same_v<void,` 
+                             `decltype(origin.template operator()<I>())>)` {
+    
+    auto result = [=]<int J>() constexpr
+    {
+        if constexpr(I == J) {
+            return value;
+        } 
+        else 
+        {
+            return origin.template operator()<J>();    
+        }
+    };
+
+    return result;
+}
+```
+
+---
+
+layout: false
+
+# You can inherit from the type of a Lambda 
+
+https://godbolt.org/z/5f168eofh
+
+```c++
+[[maybe_unused]] auto fi = [](int i) { return i * i; };
+[[maybe_unused]] auto fd = [](double d) { return 2.0 * d; };
+
+struct overload 
+    : `decltype(fi), decltype(fd)` {
+
+    using decltype(fi)::operator();
+    using decltype(fd)::operator();        
+};
+
+int main() {
+    overload o; // We can ...
+    o(42);      // Country ... 
+    o(42.0);    // and Western!
+}
+```
+
+---
+
+layout: false
+
+# You can inherit from the type of a Lambda 
+
+See https://arne-mertz.de/2018/05/overload-build-a-variant-visitor-on-the-fly/
+
+```c++
+template <class ...Fs>
+struct overload : Fs... {
+  template <class ...Ts>
+  overload(Ts&& ...ts) : Fs{std::forward<Ts>(ts)}...
+  {} 
+
+  using Fs::operator()...;
+};
+
+template <class ...Ts>
+overload(Ts&&...) -> overload<std::remove_reference_t<Ts>...>;
 ```
 
 ---
