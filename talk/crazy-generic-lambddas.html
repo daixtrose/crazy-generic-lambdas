@@ -92,7 +92,7 @@ layout: false
 
 # What are Lambdas? 
 
-Lambdas are syntactic sugar for function **objects**
+Lambdas are `syntactic sugar` for function **objects**
 
 .split-60[
 .column[
@@ -204,8 +204,8 @@ layout: false
 
 ```c++
 auto c = [](int i) {
-  auto result = [=] {
-      return i;
+  auto result = [`=`] {
+      return `i`;
   };
   
   return result;
@@ -222,7 +222,7 @@ class __lambda_1_14 {
   {
     class __lambda_2_23 {
       private: 
-      int i;
+      int `i`;
       public: 
       __lambda_2_23(int & _i) : i{_i} {}
       inline int operator()() const 
@@ -238,6 +238,11 @@ __lambda_1_14 c = __lambda_1_14{};
 
 ]
 ]
+
+---
+
+background-image: url(images/DSC_0251_small.jpg)
+background-size: cover
 
 ---
 
@@ -437,6 +442,11 @@ int main()
 }
 ```
 
+---
+
+background-image: url(images/DSC_0137_small.jpg)
+background-size: cover
+
 
 ---
 
@@ -461,10 +471,9 @@ int main()
 
 ---
 
-```c++
-#include <type_traits>
-#include <iostream>
+# `addItem`
 
+```c++
 template<int I>
 consteval auto `addItem`(auto origin, auto value) {
     
@@ -486,9 +495,6 @@ consteval auto `addItem`(auto origin, auto value) {
 ---
 
 ```c++
-#include <type_traits>
-#include <iostream>
-
 template<int `I`>
 consteval auto `addItem`(auto origin, auto `value`) {
     
@@ -512,9 +518,6 @@ consteval auto `addItem`(auto origin, auto `value`) {
 ---
 
 ```c++
-#include <type_traits>
-#include <iostream>
-
 template<int I>
 consteval auto addItem(auto `origin`, auto value) {
     
@@ -574,9 +577,6 @@ int main()
 ---
 
 ```c++
-#include <type_traits>
-#include <iostream>
-
 template<int I>
 consteval auto addItem(auto origin, auto value) 
     `requires (std::is_same_v<void,` 
