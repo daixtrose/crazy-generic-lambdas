@@ -483,7 +483,7 @@ int main()
     constexpr auto c__ = `addItem<2>`(c_, 42); // add another one 
     
     std::cout << `get<1>`(c__) << " "; // get the 1st value back 
-    std::cout << `get<2>`(c__) <pre< "\n"; // get the 2nd value back   
+    std::cout << `get<2>`(c__) << "\n"; // get the 2nd value back   
 }
 ```
 
@@ -604,8 +604,7 @@ int main()
 ```c++
 template<int I>
 consteval auto addItem(auto origin, auto value) 
-    `requires (std::is_same_v<void,` 
-                             `decltype(origin.template operator()<I>())>)` {
+    requires (std::is_void_v<decltype(origin.template operator()<I>())>) {
     
     auto result = [=]<int J>() constexpr
     {
