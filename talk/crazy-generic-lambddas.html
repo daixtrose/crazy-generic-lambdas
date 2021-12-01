@@ -33,7 +33,7 @@ background-size: cover
 
 ## .white[A glimpse on template, auto and those ...] 
 
-.white[Duration: 0:13:50 (#NoEstimates)]
+.white[Duration: 0:16:25 (#NoEstimates)]
 
 ![]()
 
@@ -89,6 +89,8 @@ background-size: cover
 ---
 
 layout: false
+background-image: url(images/DSC_0145_small.jpg)
+background-size: cover
 
 # What are Lambdas? 
 
@@ -115,15 +117,16 @@ int main()
 ```
 ]
 .column[
+<br/>
 ![](images/JosuttisAboutLambdasOnTwitter.png)
-
-https://godbolt.org/z/fqq86rKGd
 ]
 ]
 
 ---
 
 layout: false
+background-image: url(images/DSC_0145_small.jpg)
+background-size: cover
 
 # What are Lambdas? 
 
@@ -147,9 +150,9 @@ int main()
 ```
 ]
 .column[
+<br/>
 ![](images/JosuttisAboutLambdasOnTwitter.png)
 
-https://godbolt.org/z/36YvfG6v8
 ]
 ]
 
@@ -157,10 +160,12 @@ https://godbolt.org/z/36YvfG6v8
 ---
 
 layout: false
+background-image: url(images/DSC_0371_small.jpg)
+background-size: cover
 
 # Lambdas are Objects! 
 
-Check on https://cppinsights.io/ decompiler
+> Check on https://cppinsights.io/ decompiler
 
 .split-30[
 .column[
@@ -196,6 +201,8 @@ class `__lambda_1_11`
 ---
 
 layout: false
+background-image: url(images/DSC_0174_small.jpg)
+background-size: cover
 
 # Lambdas Can Store Objects via Binding 
 
@@ -247,10 +254,12 @@ background-size: cover
 ---
 
 layout: false
+background-image: url(images/DSC_0064_small.jpg)
+background-size: cover
 
 # Lambdas and Constexpr  
 
-Lambdas can be marked as *can be evaluated at compile time* via `constexpr`
+> Lambdas can be marked as *can be evaluated at compile time* via `constexpr`
 
 .split-60[
 .column[
@@ -274,10 +283,12 @@ int main()
 ---
 
 layout: false
+background-image: url(images/DSC_0064_small.jpg)
+background-size: cover
 
 # Lambdas and Constexpr  
 
-A lambda is implicitly constexpr if its result satisfies the requirements of a constexpr function:
+> A lambda is implicitly constexpr if its result satisfies the requirements of a constexpr function:
 
 
 ```c++
@@ -297,14 +308,13 @@ int main()
 ---
 
 layout: false
+background-image: url(images/DSC_0065_small.jpg)
+background-size: cover
 
 # Lambdas and Consteval  
 
-Lambdas can be marked as *must evaluate at compile time* via `consteval`, but since
-they are implicitly constexpr, consteval is not always necessary.
-
-.split-60[
-.column[
+> Lambdas can be marked as *must evaluate at compile time* via `consteval`, but since
+> they are implicitly constexpr, consteval is not always necessary.
 
 ```c++
 int main()
@@ -316,20 +326,20 @@ int main()
     static_assert(42 == c(41));
 }
 ```
-]
-.column[
-https://godbolt.org/z/WdqcW4PWr
-]
-]
+
+
 
 
 ---
 
 layout: false
+background-image: url(images/DSC_0467_small.jpg)
+background-size: cover
+
 
 # Generic Lambdas   
 
-Lambdas can be generic (as I promised)
+> Lambdas can be generic (as I promised)
 
 .split-50[
 .column[
@@ -339,8 +349,7 @@ Lambdas can be generic (as I promised)
 
 int main()
 {
-    auto c = []`<typename T>`(T i) 
-    {
+    auto c = []`<typename T>`(T i) {
         static_assert(
           std::is_integral_v<T>);
         return i + 1;
@@ -357,8 +366,7 @@ int main()
 
 int main()
 {
-    auto c = [](`auto` i) 
-    {
+    auto c = [](`auto` i) {
         static_assert(
           std::is_integral_v<
             `decltype(i)`>);
@@ -375,6 +383,8 @@ int main()
 ---
 
 layout: false
+background-image: url(images/DSC_0467_small.jpg)
+background-size: cover
 
 # Generic Lambdas: Explicit Parametrization   
 
@@ -399,6 +409,8 @@ int main()
 ---
 
 layout: false
+background-image: url(images/DSC_0467_small.jpg)
+background-size: cover
 
 # Generic Lambdas: Explicit Parametrization for Value Parameters  
 
@@ -420,6 +432,8 @@ int main()
 ---
 
 layout: false
+background-image: url(images/DSC_0467_small.jpg)
+background-size: cover
 
 # Generic Lambdas: Explicit Parametrization for Value Parameters  
 
@@ -450,6 +464,10 @@ background-size: cover
 
 ---
 
+background-image: url(images/DSC_0229_small.jpg)
+background-size: cover
+
+
 # Store Multiple Values in a Lambda
 
 ```c++
@@ -465,13 +483,16 @@ int main()
     constexpr auto c__ = `addItem<2>`(c_, 42); // add another one 
     
     std::cout << `get<1>`(c__) << " "; // get the 1st value back 
-    std::cout << `get<2>`(c__) << "\n"; // get the 2nd value back   
+    std::cout << `get<2>`(c__) <pre< "\n"; // get the 2nd value back   
 }
 ```
 
 ---
 
-# `addItem`
+background-image: url(images/DSC_0229_small.jpg)
+background-size: cover
+
+# .white[<pre>addItem</pre>]
 
 ```c++
 template<int I>
@@ -491,6 +512,10 @@ consteval auto `addItem`(auto origin, auto value) {
     return result;
 }
 ```
+---
+
+background-image: url(images/DSC_0070_small.jpg)
+background-size: cover
 
 ---
 
@@ -600,6 +625,12 @@ consteval auto addItem(auto origin, auto value)
 ---
 
 layout: false
+background-image: url(images/DSC_0198_small.jpg)
+background-size: cover
+
+---
+
+layout: false
 
 # You can inherit from the type of a Lambda 
 
@@ -629,6 +660,32 @@ layout: false
 
 # You can inherit from the type of a Lambda 
 
+```c++
+auto fi = [](int i) { return i * i; };
+auto fd = [](double d) { return 2.0 * d; };
+
+template <typename F1, typename F2> struct overload : F1, F2 {
+    using F1::operator();
+    using F2::operator();        
+};
+
+auto make_overload(auto f1, auto f2) {
+    return overload<decltype(f1), decltype(f2)>{}; 
+}
+
+int main() {
+    auto o = make_overload(fi, fd); // We can ...
+    o(42);      // Country ... 
+    o(42.0);    // and Western!
+}
+```
+
+---
+
+layout: false
+
+# You can inherit from the type of a Lambda 
+
 See https://arne-mertz.de/2018/05/overload-build-a-variant-visitor-on-the-fly/
 
 ```c++
@@ -647,1173 +704,10 @@ overload(Ts&&...) -> overload<std::remove_reference_t<Ts>...>;
 
 ---
 
-background-image: url(images/Cappuchino_small.jpg)
-background-size: cover
-
-
-
-
-
-
-
----
-
-background-image: url(images/DSC_0253_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/2019-03-14_IMG_4373_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/2019-03-15_IMG_4376_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/2019-05-08_IMG_4863_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/2019-05-08_IMG_4877_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/2019-05-14_IMG_5067_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/Cappuchino_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0002_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0010_2_DxO_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0064_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0065_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0070_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0085_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0133_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0137_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0145_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0172_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0174_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0181_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0198_1_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0198_DxO_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0198_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0199_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0211_DxO_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0229_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0251_small.jpg)
-background-size: cover
-
-
-
----
-
-background-image: url(images/DSC_0371_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0393_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0467_small.jpg)
-background-size: cover
-
-
----
-
-background-image: url(images/trash_small.jpg)
-background-size: cover
-
-
-# .white[Disclaimer]
-
-.split-48[
-.column[
-.white[
-- This is only my solution **proposal**
-  - It's not **The Perfect Solution**
-  - There might be other solutions<br>I am not aware of yet
-]
-.fixed-pos-nearly-llc[Foto: Città .white[di Firenze, 2013]]
-]
-.column[
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-.white[
-- Please give me some feedback
-- Derive and make it even better  
-]
-]
-]
-
----
-
-layout: false
-
-# Introducing Dependency Hell 
-
-Imagine a RealWorld(TM) example like the following: You are maintaining two tools,
-
-.split-40[
-.column[
-- `tool_1`
-- `tool_2`
-
-which depend on some libraries
-- `lib_A`
-- `lib_B`
-- `lib_C`
-
-Also there is an indirect dependency to 
-- `libFreeAssange` (see next slides)
-
-]
-.column[
-![](images/NamingThings.png)
-]
-]
-
-
----
-
-# Dependency Hell with Git Submodules 
-
-> Now we need strong machinery
-
-.split-50[
-.column[
-![](images/DSC_0253_DxO.jpg)
-]
-.column[
-![](images/DSC_0264_DxO.jpg)
-]
-]
-
-
----
-
-layout: false
-
-# Dependency Hell with Git Submodules - Tool 1 
-
-Now let us set up the dependencies of [`https://github.com/dep-hell/tool_1`](https://github.com/dep-hell/tool_1) 
-
-```bash
-$ git clone https://github.com/dep-hell/tool_1
-$ cd tool_1
-
-# Assuming no dependencies have been configured by now
-$ git `submodule add` -b master-yoda \ 
-  https://github.com/dep-hell/lib_A 3rdParty/`lib_A`
-
-$ git `submodule add` -b master-yoda \
-  https://github.com/dep-hell/lib_B 3rdParty/`lib_B`
-```
-
----
-
-# Dependency Hell with Git Submodules - Tool 1 
-
-```bash
-$ git status
-On branch master-yoda
-Your branch is up to date with 'origin/master-yoda'.
-
-Changes to be committed:
-  (use "git restore --staged <file>..." to unstage)
-        `new file:   .gitmodules`
-        `new file:   3rdParty/lib_A`
-        `new file:   3rdParty/lib_B`
-```
-
-```bash
-$ git commit -m "dependency setup"
-$ git push # I commited to master-yoda here!
-```
-
-
-
----
-
-layout: false
-
-# Dependency Hell with Git Submodules - Tool 1 
-
-```bash
-$ cat .gitmodules
-[submodule "3rdParty/lib_A"]
-        path = 3rdParty/lib_A
-        url = https://github.com/dep-hell/lib_A
-        branch = master-yoda
-[submodule "3rdParty/lib_B"]
-        path = 3rdParty/lib_B
-        url = https://github.com/dep-hell/lib_B
-        branch = master-yoda
-```
-
----
-
-layout: false
-
-# Dependency Hell with Git Submodules - Tool 2 
-
-Now let us set up the dependencies of [`https://github.com/dep-hell/tool_2`](https://github.com/dep-hell/tool_2) 
-
-```bash
-$ git clone https://github.com/dep-hell/tool_2
-$ cd tool_2
-
-# Assuming no dependencies have been configured by now
-$ git submodule add -b master-yoda \ 
-  https://github.com/dep-hell/lib_A 3rdParty/lib_A
-
-$ git submodule add -b master-yoda \
-  https://github.com/dep-hell/`lib_C` 3rdParty/`lib_C`
-```
-
-```bash
-$ git commit -m "dependency setup"
-$ git push # I commited to master-yoda here!
-```
----
-
-layout: false
-
-# Dependency Hell with Git Submodules - Nested Dependencies
-
-> `lib_B` **and** `lib_C` **both** depend on `https://github.com/dep-hell/libFreeAssange`  
-
-```bash
-git clone https://github.com/dep-hell/`lib_B`
-cd lib_B
-git submodule add `-b wikileaks` \ # Watch out for the devils here!
-  https://github.com/dep-hell/libFreeAssange \
-  3rdParty/libFreeAssange && cd ..
-```
-
-```bash
-git clone https://github.com/dep-hell/`lib_C`
-cd lib_C
-git submodule add `-b belmarsh` \ # Watch out for the devils here!
-  https://github.com/dep-hell/libFreeAssange \
-  3rdParty/libFreeAssange
-```
-
----
-
-# Summary: This Is How Our Dependency Hell Looks Like
-
-```bash
-$ git clone https://github.com/Dep-Hell/tool_1
-Cloning into 'tool_1'...
-[...]
-$ cd tool_1
-$ `git submodule update --remote --init --recursive`
-Submodule '3rdParty/lib_A' (https://github.com/dep-hell/lib_A) registered for path '3rdParty/lib_A'
-Submodule '3rdParty/lib_B' (https://github.com/dep-hell/lib_B) registered for path '3rdParty/lib_B'
-Cloning into '/emBOCode/tool_1/3rdParty/lib_A'...
-Cloning into '/emBOCode/tool_1/3rdParty/lib_B'...
-Submodule path '3rdParty/lib_A': checked out '`d8619eb51ace2661c4c2f6a19509dc94a66a726b`'
-Submodule path '3rdParty/lib_B': checked out 'ca0c74edecc4bfe6cbe7496825ca448d200700f3'
-Submodule '3rdParty/libFreeAssange' (https://github.com/dep-hell/libFreeAssange) registered for path '3rdParty/lib_B/3rdParty/libFreeAssange'
-Cloning into '/emBOCode/tool_1/3rdParty/lib_B/3rdParty/libFreeAssange'...
-Submodule path '3rdParty/lib_B/3rdParty/libFreeAssange': checked out '668ccf2050aade95cb847771670c229ed9e64efd'
-```
-
-???
-
-- I hope you all remember well this command line, because all arguments are crucial for avoiding headaches
-- Note that the submodules are not checked out with the dedicated branches, but use latest tag in this branch
-- We come to this in a minute  
-
----
-
-# Summary: This Is How Our Dependency Hell Looks Like
-
-.split-50[
-.column[
-<pre>
-    <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">tool_1</span>
-    ├── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-    │   ├── <span style="font-weight:bold;color:#3333FF;">lib_A</span>
-    │   │   ├── LICENSE
-    │   │   └── README.md
-    │   └── <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">lib_B</span>
-    │       ├── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-    │       │   └── <span style="font-weight:bold;color:#3333FF;">libFreeAssange</span>
-    │       │       ├── LICENSE
-    │       │       └── README.md
-    │       ├── LICENSE
-    │       └── README.md
-    ├── LICENSE
-    └── README.md
-</pre>
-]
-.column[
-<pre>
-    <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">tool_2</span>
-    ├── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-    │   ├── <span style="font-weight:bold;color:#3333FF;">lib_A</span>
-    │   │   ├── LICENSE
-    │   │   └── README.md
-    │   └── <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">lib_C</span>
-    │       ├── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-    │       │   └── <span style="font-weight:bold;color:#3333FF;">libFreeAssange</span>
-    │       │       ├── LICENSE
-    │       │       └── README.md
-    │       ├── LICENSE
-    │       └── README.md
-    ├── LICENSE
-    └── README.md
-</pre>
-
-]
-]
-
----
-
-# We Had a Problem and it Nearly Killed Us
-
-.split-40[
-.column[
-<pre>
-  <span style="font-weight:bold;color:#3333FF;">tool_1</span>
-   └── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-        ├── <span style="font-weight:bold;color:#3333FF;">lib_A</span>
-        │   ├── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-        │   │   └── <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">RxCpp</span>
-        ├── <span style="font-weight:bold;color:#3333FF;">lib_B</span>
-        │   ├── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-        │   │   └── <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">RxCpp</span>
-        └── <span style="font-weight:bold;color:#3333FF;">lib_C</span>
-            └── <span style="font-weight:bold;color:#3333FF;">3rdParty</span>
-                └── <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">RxCpp</span>
-</pre>
-]
-.column[
-- A clone of https://github.com/ReactiveX/RxCpp takes 66 MB of disc space
-- We had a system where approx. 20 different repos had `RxCpp` as a dependency
-- A modules update run took one hour in the workshop, because git cloned the very same repository approx. 20 times        
-</pre>
-> This is a QOI issue and could be mitigated. 
-]
-]
-
-
-
----
-
-layout: false
-background-image: url(images/DSC_0010_2_DxO.jpg)
-background-size: cover
-
----
-
-# Entering Hell
-
-```bash
-[.../tool_1] $ echo "some additional text" \
-  >> 3rdParty/lib_B/3rdParty/libFreeAssange/README.md
-[.../tool_1] $ git status
-
-  On branch master-yoda
-  Your branch is up to date with 'origin/master-yoda'.
-  
-  Changes not staged for commit:
-    (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-    (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
-    (commit or discard the untracked or modified content in submodules)
-          modified:   `3rdParty/lib_B (modified content)`
-  
-  no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-```
----
-
-# Entering Hell 
-
-```bash
-[.../tool_1] $ git add 3rdParty/lib_B/3rdParty/libFreeAssange/README.md
-fatal: Pathspec '3rdParty/lib_B/3rdParty/libFreeAssange/README.md' 
-is in submodule '3rdParty/lib_B'
-```
-
-> This is a reasonable check. Happy to have it. It may be counter-intuitive though.
-
----
-
-# Entering Hell 
-
-```bash
-$ cd 3rdParty/lib_B/3rdParty/libFreeAssange
-$ git add README.md 
-$ git commit -m "some change"
-$ git push
-```
-
-<pre>
-fatal: You are <span style="font-weight:bold;color:#3333FF;background-color: #ff0;">not currently on a branch.</span>
-To push the history leading to the current (detached HEAD)
-state now, use
-
-    git push origin HEAD:<name-of-remote-branch>
-</pre>
-
-> 
-
-???
-
-- git is complicated enough to drive away inexperienced people
-- neither `git pull` will give you an indication whether we are up-to-date here
-
----
-
-layout: false
-background-image: url(images/DSC_0270.JPG)
-background-size: cover
-
----
-
-# Entering Hell 
-
-Let me get this clear: we **declared** `libFreeAssange` to **be** on branch `wikileaks`
-
-```bash
-$ cat ../../../lib_B/.gitmodules 
-[submodule "3rdParty/libFreeAssange"]
-        path = 3rdParty/libFreeAssange
-        url = https://github.com/dep-hell/libFreeAssange
-        `branch = wikileaks`
-```
-
-but it's not, so here we go doing something manually (the release of Boeing 737 MAX can't wait): 
-
-```bash
-[.../libFreeAssange] $ git reset --soft HEAD~1
-[.../libFreeAssange] $ git `checkout wikileaks` # <--- This!
-[.../libFreeAssange] $ git add README.md
-[.../libFreeAssange] $ git commit -m "some change"
-[.../libFreeAssange] $ git push
-```
-
----
-
-# Being in Hell
-
-```bash 
-[.../libFreeAssange] $ cd ../..
-[.../lib_B] $ git status
-HEAD detached at ca0c74e
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-        `modified:   3rdParty/libFreeAssange (new commits)`
-
-no changes added to commit (use "git add" and/or "git commit -a")
-```
-
-> Practice **[Yoga with Adriene](https://www.youtube.com/user/yogawithadriene)**, 
-because we need a deep breath here. Let's go:
-
----
-
-```bash 
-[.../`lib_B`] $ git add 3rdParty/libFreeAssange
-[.../lib_B] $ git comm... # WAIT! OH NO!
-[.../lib_B] $ git reset --soft HEAD~1
-[.../lib_B] $ git checkout `master-yoda # shall we use this branch ...`
-[.../lib_B] $ git pull
-[.../lib_B] $ git add 3rdParty/libFreeAssange
-[.../lib_B] $ git commit -m "update of libFreeAssange"
-[.../lib_B] $ git push
-[.../lib_B] $ cd ../..
-[.../`tool_1`] $ git checkout -b \ # .. or `shall we use another branch?`
-  `dummy-branch-for-a-change-that-changes-nothing` 
-[.../tool_1] $ git push --set-upstream origin \
-  dummy-branch-for-a-change-that-changes-nothing 
-[.../tool_1] $ git add 3rdParty/lib_B 
-[.../tool_1] $ git commit -m "update of lib_B, due to ..." 
-[.../tool_1] $ git push 
-```
-
-> 10 commands to reflect a change in a library. Scales with O(n) with the # of nesting levels.  
-
-
----
-
-
-layout: false
-background-image: url(images/DSC_0198_DxO.jpg)
-background-size: cover
-
-.split-50[
-.column[
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;<br>
-- Submodules are bound to commits<br>rather than branches.
-- In a deeply nested structure the updates taint the tree. Changes are not local.
-> Git add and commit are abused for changes of the *database*, there are no changes of any files under version control
-- Does this encourage distribution of code into multiple repositories? 
-]
-.column[
-]
-]
-
-???
-
-- I don't know the reason for the design decision for having submodules stick to commits rather than branches
-- We need a directory structure that allows code editing across multiple repositories, because a code change might affect several of them.
-- Seen a trend that people put everything in one repo, since tools do not support modularity
-- I think something is wrong with this.
-
----
-
-layout: false
-background-image: url(images/2019-03-15_IMG_4376.JPG)
-background-size: cover
-
-
----
-
-background-image: url(images/DSC_0211_DxO.jpg)
-background-size: cover
-
-
-# .white[Let's talk]
-
-# .white[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; about CMake]
-    
----
-
-# CMake - Some Advice
-
-> Never ever follow any advice that is older than 3 months. This advice won't age well.
-
-- Don't try to use the internet to find out how CMake works 
-- Maybe even don't try to find out how CMake works at all. 
-  - Read [Isabella Muerte](https://twitter.com/slurpsmadrips)'s blog about<br> 
-  *[Everything You Never Wanted to Know About CMake](https://izzys.casa/2019/02/everything-you-never-wanted-to-know-about-cmake/)*
-- Read a ... book? I have a proposal:
-  - > Craig Scott: *Professional CMake: A Practical Guide*   
-- I wish this book had been written 2 years earlier  
-- Listen to Craig's talks on YouTube, e.g. https://www.youtube.com/watch?v=m0DwB4OvDXk  
-
----
-
-layout: false
-background-image: url(images/2019-05-14_IMG_5067.JPG)
-background-size: cover
-
-
-# .white[How to Deal with Dependencies in CMake] 
-
----
-
-# How to Deal with Dependencies in CMake 
-
-```cmake
-# See https://cmake.org/cmake/help/latest/module/FetchContent.html
-include(`FetchContent`) 
-```
-
-- While `ExternalProject_Add()` executes **at build time**, `FetchContent` performs earlier **during the configuration step**.
-- If you fetch dependencies that have `CMake` configured correctly, `add_subdirectory()` works fine.
-
-
----
-
-# The 2-Step Approach of FetchContent
-
-```cmake
-FetchContent_`Declare`( # 1st step
-  libFreeAssange
-  GIT_REPOSITORY https://github.com/dep-hell/libFreeAssange
-  GIT_TAG        belmarsh
-)
-```
-
-```cmake
-FetchContent_`MakeAvailable`(libFreeAssange) # 2nd step 
-```
-
----
-
-# The 2-Step Approach of FetchContent
-
-```cmake
-FetchContent_`MakeAvailable`(libFreeAssange) # 2nd step 
-```
-
-is equivalent to
-
-```cmake
-FetchContent_GetProperties(libFreeAssange)
-if(NOT libFreeAssange_POPULATED)
-  FetchContent_Populate(libFreeAssange)
-  `add_subdirectory`(${libFreeAssange_SOURCE_DIR} 
-                   ${libFreeAssange_BINARY_DIR})
-endif()
-```
-
----
-
-# The 2-Step Approach of FetchContent
-
-```cmake
-FetchContent_`MakeAvailable`(libFreeAssange) # 2nd step 
-```
-
-is equivalent to
-
-```cmake
-FetchContent_GetProperties(libFreeAssange)
-if(NOT libFreeAssange_POPULATED)
-  FetchContent_Populate(libFreeAssange)
-  add_subdirectory(${libFreeAssange_SOURCE_DIR} 
-                   ${libFreeAssange_BINARY_DIR})
-  # `Add your own stuff here if the library you include` 
-  # `is not properly configured` 
-endif()
-```
-
----
-
-# Key features of FetchContent
-
-## Fetching content from Git repositories
-
-```cmake
-FetchContent_Declare(
-    cmake_utilities
-    `GIT_REPOSITORY` https://github.com/daixtrose/cmake_utilities
-    GIT_TAG        main)
-```
-
----
-
-# Key features of FetchContent
-
-## Fetching content from URLs
-
-```cmake
-FetchContent_Declare(
-    myCompanyIcons
-    `URL`      https://intranet.mycompany.com/assets/iconset_1.12.tar.gz
-    URL_HASH 5588a7b18261c20068beabfb4f530b87)
-```
-
----
-
-# Key features of FetchContent
-
-## Fetching content from a **source directory** (!)  
-
-```cmake
-FetchContent_Declare(
-    some_name 
-    `SOURCE_DIR` /path/to/directory)
-```  
-
-> I leverage this feature for my proposal. There is a little surprise here. Stay tuned.
-
----
-
-# Key features of FetchContent
-
-- The <span style="background-color:yellow;">first</span> call to `FetchContent_Declare` wins. 
-  > You can **overwrite dependency settings** in libraries you include!
-  > - This obviously only works if the libraries you include uses FetchContent
-  > - You can change the branch or relase version (if compatible) 
-  > - You can change the source location
-  > - You can even redirect to a completely different library
-
----
-
-# My Proposal in a Nutshell  
-
-> Create a file named `dependencies.txt` in the top level of your tool repository:
-
-```bash
-# Please add dependencies as 
-# <LOWERCASE_NAME> <URL> <GIT TAG>  
-
-# Internal dependencies
-lib_A https://github.com/dep-heaven/lib_A master-yoda
-lib_B https://github.com/dep-heaven/lib_B master-yoda
-libFreeAssange https://github.com/dep-heaven/libFreeAssange belmarsh
-
-# External dependencies
-catch2 https://github.com/catchorg/Catch2 v2.x
-fmt https://github.com/fmtlib/fmt master
-```
-
----
-
-# My Proposal in a Nutshell
-
-> Content of `CMakeLists.txt`
-
-```cmake
-include(FetchContent)
-FetchContent_Declare(
-  cmake_utilities
-  GIT_REPOSITORY `https://github.com/daixtrose/cmake_utilities`
-  GIT_TAG        main
-)
-FetchContent_MakeAvailable(cmake_utilities)
-
-fetchcontent_dependencies( # <-- THIS
-    FILENAME `dependencies.txt` 
-    WORKSPACE ws)
-```
-
----
-
-# Tool 1 - Directory Structure
-
-```
-tool_1
-  ├── include
-  │   └── tool_1
-  ├── src
-  └── test-catch
-```
-
----
-
-# Tool 1 - Directory Structure
-
-```
-tool_1
-  ├── include
-  │   └── tool_1
-  ├── src
-  └── test-catch
-```
-
-Now let's cmake it:
-
-```bash
-[.../tool_1] $ mkdir build
-[.../tool_1] $ cd build
-[.../build] $ cmake ..
-```
-
----
-
-# Tool 1 - Build Directory Structure
-
-```bash
-tool_1
-├── `build`
-...
-│   ├── `_deps` `# This is where FetchContent puts all its stuff`
-│   │   ├── catch2-build
-│   │   ├── catch2-src
-│   │   ├── catch2-subbuild
-│   │   ├── cmake_utilities-build
-│   │   ├── cmake_utilities-src
-│   │   ├── cmake_utilities-subbuild
-│   │   ├── fmt-build
-│   │   ├── fmt-src
-│   │   ├── fmt-subbuild
-│   │   ├── lib_a-build
-│   │   ├── lib_a-src
-│   │   ├── lib_a-subbuild
-│   │   ├── lib_b-build
-│   │   ├── lib_b-src
-│   │   ├── lib_b-subbuild
-│   │   ├── libfreeassange-build
-│   │   ├── libfreeassange-src
-│   │   └── libfreeassange-subbuild
-│   └── test-catch
-│       └── CMakeFiles
-├── include
-│   └── tool_1
-├── src
-└── test-catch
-```
-
-
-
----
-
-# Tool 1 - Build Directory Structure
-
-```bash
-tool_1
-├── `build`
-...
-│   ├── `_deps` # This is where FetchContent puts all its stuff
-│   │   ├── catch2-*
-│   │   ├── `cmake_utilities*`
-│   │   ├── fmt-*
-│   │   ├── lib_a*
-│   │   ├── lib_b*
-│   │   ├── libfreeassange*
-│   └── test-catch
-│       └── CMakeFiles
-├── include
-│   └── tool_1
-├── src
-└── test-catch
-```
-
----
-
-# How to debug and edit the code? 
-
-- Changing the code in `build` is not the way to go, so what then?
-- We have to clone all dependencies to a .accent[certain place on our disk] and edit it there. 
-  - Ideally any change in that code is transferred to the `build` directory    
-
-# My Proposal
-
-- Create a directory, e.g. `ws`
-  ```bash
-  mkdir ws
-  touch ws/.gitkeep # because git will not put empty directories under VC 
-  ```
-- Add this directory to `.gitignore`, so nothing inside it can confuse git  
-- Clone all dependencies into `ws` <span style="background-color:yellow;">*without* any recursion</span> 
-- Ensure <span style="background-color:yellow;">`CMake`</span> will fetch (**sic!**) from `ws` **and** <span style="background-color:yellow;">will track code changes in `ws`</span> 
-
----
-
-# Cloning all dependencies 
-
-```bash
-./setup.sh # There it is, the shell script that reads `dependencies.txt`  
-```
-
-Resulting directory structure:
-
-```bash
-tool_1
-  ├── include
-  │   └── tool_1
-  ├── src
-  ├── test-catch
-  └── ws `# This directory is in .gitignore & so is everything below it`
-      ├── catch2
-      ├── fmt
-      ├── libFreeAssange # This is a dependency of lib_B, no recursion
-      ├── lib_A
-      └── lib_B
-```
-
----
-
-# The final directory structure
-
-`$ mkdir build && cd build && cmake ..`
-
-```bash
-tool_1
-├── build
-[...]
-│   ├── _deps
-│   │   ├── catch2-build # catch2-src was not put here!
-│   │   ├── catch2-subbuild
-[...]
-│   │   ├── fmt-build # fmt-src was not put here! 
-│   │   ├── fmt-subbuild
-│   │   ├── lib_a-build # Dito
-│   │   ├── lib_a-subbuild
-[...]
-├── include
-│   └── tool_1
-├── src
-├── test-catch
-└── ws
-    ├── catch2
-    ├── fmt
-    ├── libFreeAssange
-    ├── lib_A
-    └── lib_B
-```
-
----
-
-# The resulting directory structure
-
-Due to `FetchContent_Declare(some_name SOURCE_DIR /path/to/directory)`
-
-```bash
-[...]
-│   │   ├── `fmt`-build # fmt-src was not put here! 
-│   │   ├── `fmt`-subbuild
-│   │   ├── lib_a-build
-│   │   ├── lib_a-subbuild
-[...]
-├── include
-│   └── tool_1
-├── src
-├── test-catch
-└── ws
-    ├── catch2 
-    ├── `fmt` # Here's the code
-    ├── libFreeAssange
-    ├── lib_A
-    └── lib_B
-```
-
----
-
-layout: false
-background-image: url(images/Lauch.jpg)
-background-size: cover
-
-
-# Findings
-
-> - `FetchContent_Declare(some_name SOURCE_DIR /path/to/directory)`<br>
-does **not** fetch the content, but **refers** to it directly.<br><br>
-
-> - This means that the debugger will point to the code below `ws`.
-
-> - AFAICS this is the most efficient usage of hard disk space, 
-  since the code for every dependency is stored on disk exactly once.    
-
-> - CMake works **with and without** any clones in `ws`. 
-> - The `CMakeLists.txt` and `setup.sh` are completely orthogonal, but share common information
-    in `dependencies.txt`.      
-
----
-
-# Let's Take a Look at the Code
-
-```cmake
-macro(fetchcontent_dependencies)
-    set(options "")
-    set(oneValueArgs FILENAME WORKSPACE)
-    set(multiValueArgs "")
-    cmake_parse_arguments(FETCHCONTENT_DEPENDENCIES 
-        "${options}" "${oneValueArgs}"
-        "${multiValueArgs}" ${ARGN})
-    
-    # Read a list of required git repositories from a file
-    file(STRINGS ${FETCHCONTENT_DEPENDENCIES_FILENAME} DEPENDENCIES)
-    # Add those dependencies via FetchContent
-    # STEP 1: declare all dependencies
-    `foreach(dependency ${DEPENDENCIES})`
-        # ... see next slide
-```
-
----
-
-## Flexible Decision
-
-If a local clone exists, use that one, otherwise standard operational procedure
-
-```cmake
-foreach(dependency ${DEPENDENCIES})
-    # ... hacky hacky string parsing ommitted here ...
-    `if (EXISTS ${LOCAL_SOURCE})` 
-          # ... git check omitted here ...         
-          FetchContent_Declare(${name} 
-              `SOURCE_DIR` ${PROJECT_SOURCE_DIR}/ws/${name})
-    else()
-          FetchContent_Declare(${name} 
-              `GIT_REPOSITORY` ${repository} GIT_TAG ${git_tag})
-    endif()
-```
-> It is very important that we first **declare** all dependencies before 
-  populating them, otherwise dependencies of dependencies might "steal" the decision 
-  over which version to use
-
----
-
-## Step 2: Populate
-
-```cmake
-    foreach(dependency ${DEPENDENCIES})
-        # ... hacky hacky string parsing ommitted here ...
-        FetchContent_GetProperties(${name})
-        string(TOLOWER ${name} lowercase_name)
-        if(NOT ${lowercase_name}_POPULATED)
-            `FetchContent_Populate`(${name})
-            `add_subdirectory`(${${lowercase_name}_SOURCE_DIR} 
-                ${${lowercase_name}_BINARY_DIR} ${additional_args})
-        endif()
-
-        # HACK: we **know** we need extra work for Catch2 population 
-        if ("${lowercase_name}" STREQUAL "catch2")
-            `list(APPEND CMAKE_MODULE_PATH "${catch2_SOURCE_DIR}/contrib")`
-            `include(Catch)`
-        endif()
-    endforeach()
-```
-
----
-
-# This Shell Script Has Potential 
-
-Calling setup.sh to check and update all git repositories
-
-<pre>
-[.../tool_1] $ ./setup.sh
-<span style="color:blue;">Checking ws/lib_A</span>
-<span style="color:blue;">Checking ws/lib_B</span>
-<span style="color:blue;">Checking ws/libFreeAssange</span>
-<span style="color:red;"> Your branch is behind 'origin/belmarsh' by 1 commit, and can be fast-forwarded. </span>
-<span style="color:blue;">Checking ws/catch2</span>
-<span style="color:blue;">Checking ws/fmt</span>
-<span style="color:blue;">Checking /home/markus/PROJECT/dep-heaven/tool_1</span>
-<span style="color:red;">!!!! ===&gt; There are uncommited changes &lt;=== !!!!</span>
-On branch master-yoda
-Your branch is up to date with 'origin/master-yoda'.
-
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
-        modified:   <span style="background-color:yellow;">dependencies.txt</span>
-
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</pre>
-
----
-
-# Summary
-
-> CMake's Feature `FetchContent` is a flexible tool for dependency management
-
-- You can have it all: 
-  - All code visible for an IDE **and** the debugger 
-  - A minimum of copy operation on harddisk or via internet 
-  - Full control over the dependency tree and configuration management 
-
----
-
 class: middle
 template: inverse
-background-image: url(images/2019-03-14_IMG_4362.JPG)
+background-image: url(images/Cappuchino_small.jpg)
 background-size: cover
-
 
 .center[
 
@@ -1821,6 +715,10 @@ background-size: cover
 
 ]
 
+---
+
+background-image: url(images/DSC_0253_small.jpg)
+background-size: cover
 
 
 
